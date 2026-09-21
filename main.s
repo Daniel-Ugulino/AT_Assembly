@@ -25,6 +25,7 @@ MSG     msg_flags,   "Flags empacotadas: "
 MSG     msg_lut,     "Valores LUT: "
 MSG     msg_simd,    "Soma SIMD (4): "
 MSG     msg_norm,    "Normalizacao SIMD: "
+MSG     msg_nl,      "\n"
 MSG     msg_sp,      " "
 MSG     msg_dot,     "0."
 
@@ -130,7 +131,6 @@ ponto:
     bl      lista_norm
     printz  msg_nl
 
-    printz  msg_fim
     sair    #0
 
 /* mostra: x0 = inteiro → stdout */
