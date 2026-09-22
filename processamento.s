@@ -1,10 +1,8 @@
-/* processamento.s */
 
-    .text
-    .align  2
+.text
+.align  2
 
-/* validas  x0=status  x1=n  →  x0=qtd bit 0 */
-    .global validas
+.global validas
 validas:
     mov     x2, #0
     mov     x3, #0
@@ -20,8 +18,7 @@ validas:
     mov     x0, x2
     ret
 
-/* soma  x0=valores  x1=status  x2=n  →  x0=soma dos validos */
-    .global soma
+.global soma
 soma:
     mov     x3, #0
     mov     x4, #0
@@ -39,8 +36,7 @@ soma:
     mov     x0, x4
     ret
 
-/* media  x0=soma  x1=qtd  →  x0=soma/qtd */
-    .global media
+.global media
 media:
     cbz     x1, 1f
     udiv    x0, x0, x1
@@ -49,8 +45,7 @@ media:
     mov     x0, #0
     ret
 
-/* rotacionar  w0=valor  w1=desloc  (sem ROR) */
-    .global rotacionar
+.global rotacionar
 rotacionar:
     and     w1, w1, #31
     lsr     w2, w0, w1
@@ -60,8 +55,7 @@ rotacionar:
     orr     w0, w2, w3
     ret
 
-/* bit  w0=status  w1=indice  →  0 ou 1 */
-    .global bit
+.global bit
 bit:
     stp     x29, x30, [sp, #-16]!
     bl      rotacionar
@@ -69,8 +63,7 @@ bit:
     ldp     x29, x30, [sp], #16
     ret
 
-/* bits  x0=status  x1=n  x2=indice  →  qtd */
-    .global bits
+.global bits
 bits:
     stp     x29, x30, [sp, #-48]!
     stp     x19, x20, [sp, #16]
@@ -98,8 +91,7 @@ bits:
     ldp     x29, x30, [sp], #48
     ret
 
-/* empacotar  x0,x1,x2 → bat<<16 | alarme<<8 | validas */
-    .global empacotar
+.global empacotar
 empacotar:
     and     w0, w0, #0xFF
     and     w1, w1, #0xFF
@@ -108,9 +100,7 @@ empacotar:
     orr     w0, w0, w2, lsl #16
     ret
 
-/* aplica_lut  saida = lut[i] se status[i] valido
- * (nao pode se chamar lut: esse nome ja e o vetor em .data) */
-    .global aplica_lut
+.global aplica_lut
 aplica_lut:
     mov     x5, #0
     mov     x6, #0
@@ -129,8 +119,7 @@ aplica_lut:
     mov     x0, x6
     ret
 
-/* soma4  NEON: soma valores[0..3] */
-    .global soma4
+.global soma4
 soma4:
     ld1     {v0.4s}, [x0]
     addv    s1, v0.4s
@@ -138,8 +127,7 @@ soma4:
     sxtw    x0, w0
     ret
 
-/* normaliza  NEON: 4 ints → float / 1000.0 em [x1] */
-    .global normaliza
+.global normaliza
 normaliza:
     ld1     {v0.4s}, [x0]
     scvtf   v0.4s, v0.4s
