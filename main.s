@@ -21,7 +21,6 @@ MSG     msg_soma,    "Soma: "
 MSG     msg_media,   "Media inteira: "
 MSG     msg_alarme,  "Alarmes: "
 MSG     msg_bat,     "Bateria baixa: "
-MSG     msg_flags,   "Flags empacotadas: "
 MSG     msg_lut,     "Valores LUT: "
 MSG     msg_simd,    "Soma SIMD (4): "
 MSG     msg_norm,    "Normalizacao SIMD: "
@@ -87,12 +86,6 @@ ponto:
     bl      bits
     mov     x23, x0
 
-    mov     x0, x19
-    mov     x1, x22
-    mov     x2, x23
-    bl      empacotar
-    mov     x24, x0
-
     /* 3. LUT */
     adr64   x0, valores
     adr64   x1, status
@@ -117,7 +110,6 @@ ponto:
     linha   msg_media,   x21
     linha   msg_alarme,  x22
     linha   msg_bat,     x23
-    linha   msg_flags,   x24
 
     printz  msg_lut
     adr64   x0, lut_saida

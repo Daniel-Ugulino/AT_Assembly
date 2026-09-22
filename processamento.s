@@ -91,15 +91,6 @@ bits:
     ldp     x29, x30, [sp], #48
     ret
 
-.global empacotar
-empacotar:
-    and     w0, w0, #0xFF
-    and     w1, w1, #0xFF
-    and     w2, w2, #0xFF
-    orr     w0, w0, w1, lsl #8
-    orr     w0, w0, w2, lsl #16
-    ret
-
 .global aplica_lut
 aplica_lut:
     mov     x5, #0
