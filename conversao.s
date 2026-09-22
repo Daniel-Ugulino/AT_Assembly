@@ -3,67 +3,34 @@
     .text
     .align  2
 
-/*
- * ascii
- *   x0 = valor (rejeita negativo)
- *   x1 = buffer
- *   x2 = capacidade (>= 2)
- *   volta x0 = tamanho, ou -1
- */
+/* ascii  x0=valor  x1=buffer  →  x0=tamanho */
     .global ascii
 ascii:
-    cbz     x1, erro
-    cmp     x2, #2
-    b.lo    erro
-    tbnz    x0, #63, erro
-
     mov     x3, x1
-    mov     x4, x2
-    mov     x5, x0
-
-    cbnz    x5, digitos
-    mov     w6, #'0'
-    strb    w6, [x3]
-    strb    wzr, [x3, #1]
-    mov     x0, #1
-    ret
-
-digitos:
+    mov     x4, x0
+    mov     x5, #0
+    mov     x6, #10
     sub     sp, sp, #32
-    mov     x6, #0
-    mov     x7, #10
-divide:
-    cbz     x5, inverte
-    add     x8, x6, #1
-    sub     x9, x4, #1
-    cmp     x8, x9
-    b.hi    cheio
-    udiv    x10, x5, x7
-    msub    x11, x10, x7, x5
-    add     w11, w11, #'0'
-    strb    w11, [sp, x6]
-    add     x6, x6, #1
-    mov     x5, x10
-    b       divide
+1:
+    udiv    x7, x4, x6
+    msub    x8, x7, x6, x4
+    add     w8, w8, #'0'
+    strb    w8, [sp, x5]
+    add     x5, x5, #1
+    mov     x4, x7
+    cbnz    x4, 1b
 
-inverte:
-    mov     x8, #0
-copia:
-    cmp     x8, x6
-    b.eq    fim
-    sub     x9, x6, x8
-    sub     x9, x9, #1
-    ldrb    w10, [sp, x9]
-    strb    w10, [x3, x8]
-    add     x8, x8, #1
-    b       copia
-fim:
-    strb    wzr, [x3, x6]
-    mov     x0, x6
+    mov     x7, #0
+2:
+    sub     x8, x5, x7
+    sub     x8, x8, #1
+    ldrb    w9, [sp, x8]
+    strb    w9, [x3, x7]
+    add     x7, x7, #1
+    cmp     x7, x5
+    b.lo    2b
+
+    strb    wzr, [x3, x5]
+    mov     x0, x5
     add     sp, sp, #32
-    ret
-cheio:
-    add     sp, sp, #32
-erro:
-    mov     x0, #-1
     ret
