@@ -16,14 +16,14 @@ status:
 lut:
     .word   100, 200, 300, 400, 500, 600, 700, 800
 
-MSG     msg_validas, "Amostras validas : "
-MSG     msg_soma,    "Soma: "
-MSG     msg_media,   "Media inteira: "
-MSG     msg_alarme,  "Alarmes: "
-MSG     msg_bat,     "Bateria baixa: "
-MSG     msg_lut,     "Valores LUT: "
-MSG     msg_simd,    "Soma SIMD (4): "
-MSG     msg_norm,    "Normalizacao SIMD: "
+MSG     msg_validas, "Amostras validas:"
+MSG     msg_soma,    "Soma:"
+MSG     msg_media,   "Media inteira:"
+MSG     msg_alarme,  "Alarmes:"
+MSG     msg_bat,     "Bateria baixa:"
+MSG     msg_lut,     "Valores LUT:"
+MSG     msg_simd,    "Soma SIMD (4):"
+MSG     msg_norm,    "Normalizacao SIMD:"
 MSG     msg_nl,      "\n"
 MSG     msg_sp,      " "
 MSG     msg_dot,     "0."
@@ -125,7 +125,6 @@ ponto:
 
     sair    #0
 
-/* mostra: x0 = inteiro → stdout */
 mostra:
     stp     x29, x30, [sp, #-16]!
     adr64   x1, num_buf
@@ -136,7 +135,6 @@ mostra:
     ldp     x29, x30, [sp], #16
     ret
 
-/* lista: x0 = vetor .word  x1 = n */
 lista:
     stp     x29, x30, [sp, #-48]!
     stp     x19, x20, [sp, #16]
@@ -160,7 +158,6 @@ lista:
     ldp     x29, x30, [sp], #48
     ret
 
-/* lista_norm: 4 floats de norm_saida como 0.xxx */
 lista_norm:
     stp     x29, x30, [sp, #-32]!
     stp     x20, x21, [sp, #16]

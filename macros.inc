@@ -36,7 +36,6 @@
     print   \nome, \nome\()_len
 .endm
 
-/* imprime "rotulo" + numero em reg + '\n' */
 .macro  linha txt, reg
     printz  \txt
     mov     x0, \reg
