@@ -129,7 +129,7 @@ normaliza:
     st1     {v0.4s}, [x1]
     ret
 
-    .section .rodata
-    .balign 16
+.section .rodata
+.balign 16
 mil:
-    .float  1000.0
+.float  1000.0

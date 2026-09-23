@@ -1,5 +1,3 @@
-# Raspberry Pi Zero 2 W (as/ld nativos)
-
 ASFLAGS = -g -I.
 
 all: at
